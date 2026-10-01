@@ -12,6 +12,7 @@ public class CuentaBancaria {
     private final String titular;
     private BigDecimal saldo = new BigDecimal("0.00");
     private int retiros = 0;
+    private boolean cerrada = false;
     private final List<Movimiento> movimientos = new ArrayList<>();
 
     public CuentaBancaria(String titular) {
@@ -21,13 +22,35 @@ public class CuentaBancaria {
         this.titular = titular.strip();
     }
 
+    public void cerrar() {
+        if (cerrada) {
+            throw new CuentaCerradaException(titular);
+        }
+        if (saldo.signum() > 0) {
+            throw new IllegalStateException("No puedes cerrar una cuenta con saldo: $" + saldo);
+        }
+        this.cerrada = true;
+    }
+
+    public boolean estaCerrada() {
+        return cerrada;
+    }
+
+    private void validarAbierta() {
+        if (cerrada) {
+            throw new CuentaCerradaException(titular);
+        }
+    }
+
     public void depositar(BigDecimal monto) {
+        validarAbierta();
         BigDecimal m = validarMonto(monto);
         saldo = saldo.add(m);
         movimientos.add(new Movimiento(TipoMovimiento.DEPOSITO, m));
     }
 
     public void retirar(BigDecimal monto) {
+        validarAbierta();
         BigDecimal m = validarMonto(monto);
         if (m.compareTo(LIMITE_POR_RETIRO) > 0) {
             throw new LimiteExcedidoException(m, LIMITE_POR_RETIRO);
@@ -46,8 +69,12 @@ public class CuentaBancaria {
     }
 
     public void transferir(BigDecimal monto, CuentaBancaria destino) {
+        validarAbierta();
         if (destino == null) {
             throw new IllegalArgumentException("La cuenta destino es obligatoria");
+        }
+        if (destino.estaCerrada()) {
+            throw new CuentaCerradaException(destino.getTitular());
         }
         if (destino == this) {
             throw new IllegalArgumentException("No puedes transferirte a la misma cuenta");
@@ -69,21 +96,10 @@ public class CuentaBancaria {
         return numeroDeRetiro <= RETIROS_GRATIS ? new BigDecimal("0.00") : COMISION;
     }
 
-    public String getTitular() {
-        return titular;
-    }
-
-    public BigDecimal getSaldo() {
-        return saldo;
-    }
-
-    public int getRetiros() {
-        return retiros;
-    }
-
-    public List<Movimiento> getMovimientos() {
-        return List.copyOf(movimientos);
-    }
+    public String getTitular() { return titular; }
+    public BigDecimal getSaldo() { return saldo; }
+    public int getRetiros() { return retiros; }
+    public List<Movimiento> getMovimientos() { return List.copyOf(movimientos); }
 
     private static BigDecimal validarMonto(BigDecimal monto) {
         if (monto == null || monto.signum() <= 0) {
