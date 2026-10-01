@@ -69,10 +69,21 @@ public class CuentaBancaria {
         return numeroDeRetiro <= RETIROS_GRATIS ? new BigDecimal("0.00") : COMISION;
     }
 
-    public String getTitular() { return titular; }
-    public BigDecimal getSaldo() { return saldo; }
-    public int getRetiros() { return retiros; }
-    public List<Movimiento> getMovimientos() { return List.copyOf(movimientos); }
+    public String getTitular() {
+        return titular;
+    }
+
+    public BigDecimal getSaldo() {
+        return saldo;
+    }
+
+    public int getRetiros() {
+        return retiros;
+    }
+
+    public List<Movimiento> getMovimientos() {
+        return List.copyOf(movimientos);
+    }
 
     private static BigDecimal validarMonto(BigDecimal monto) {
         if (monto == null || monto.signum() <= 0) {

@@ -1,0 +1,211 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.academia:cuenta-bancaria-junit >-----------------
+[INFO] Building cuenta-bancaria-junit 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ cuenta-bancaria-junit ---
+[INFO] skip non existing resourceDirectory /home/lenovo1/cuenta-bancaria-junit/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ cuenta-bancaria-junit ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 6 source files with javac [debug release 17] to target/classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ cuenta-bancaria-junit ---
+[INFO] skip non existing resourceDirectory /home/lenovo1/cuenta-bancaria-junit/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ cuenta-bancaria-junit ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 5 source files with javac [debug release 17] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.2:test (default-test) @ cuenta-bancaria-junit ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] +--Interés mensual - 0.158 s
+[INFO] |  +-- [OK] un saldo negativo es un error - 0.021 s
+[INFO] |  +-- [OK] calculaSegunLaTabla(BigDecimal, BigDecimal) saldo $0.00 interés $0.00 - 0.033 s
+[INFO] |  +-- [OK] calculaSegunLaTabla(BigDecimal, BigDecimal) saldo $999.99 interés $0.00 - 0.001 s
+[INFO] |  +-- [OK] calculaSegunLaTabla(BigDecimal, BigDecimal) saldo $1000.00 interés $5.00 - 0.001 s
+[INFO] |  +-- [OK] calculaSegunLaTabla(BigDecimal, BigDecimal) saldo $1234.56 interés $6.17 - 0.002 s
+[INFO] |  +-- [OK] calculaSegunLaTabla(BigDecimal, BigDecimal) saldo $49999.99 interés $250.00 - 0.002 s
+[INFO] |  +-- [OK] calculaSegunLaTabla(BigDecimal, BigDecimal) saldo $50000.00 interés $500.00 - 0.001 s
+[INFO] |  '-- [OK] calculaSegunLaTabla(BigDecimal, BigDecimal) saldo $123456.78 interés $1234.57 - 0.001 s
+[INFO] +--Comisión por retiro - 0.048 s
+[INFO] |  +-- [OK] segunElNumeroDeRetiro(int, BigDecimal) retiro n.º 1 comisión $0.00 - 0.005 s
+[INFO] |  +-- [XX] segunElNumeroDeRetiro(int, BigDecimal) retiro n.º 3 comisión $0.00 - 0.011 s
+[INFO] |  +-- [OK] segunElNumeroDeRetiro(int, BigDecimal) retiro n.º 4 comisión $10.00 - 0.001 s
+[INFO] |  +-- [OK] segunElNumeroDeRetiro(int, BigDecimal) retiro n.º 100 comisión $10.00 - 0.001 s
+[INFO] |  +-- [OK] numerosInvalidos(int) retiro n.º 0 no existe - 0.003 s
+[INFO] |  '-- [OK] numerosInvalidos(int) retiro n.º -1 no existe - 0.001 s
+[INFO] +--.--Transferencias entre cuentas Cuando la transferencia se rechaza - 0.023 s
+[INFO] |  |  +-- [OK] no se puede transferir a la misma cuenta - 0.006 s
+[INFO] |  |  +-- [OK] la cuenta destino es obligatoria - 0.003 s
+[INFO] |  |  +-- [OK] el monto debe ser mayor que cero - 0.003 s
+[INFO] |  |  '-- [XX] sin saldo suficiente, ninguna de las dos cuentas cambia - 0.016 s
+[INFO] +-----Transferencias entre cuentas Cuando la transferencia procede - 0.023 s
+[INFO] |     +-- [OK] el dinero sale de una cuenta y llega a la otra - 0.002 s
+[INFO] |     +-- [OK] queda en el historial de las dos cuentas - 0.016 s
+[INFO] |     '-- [OK] no cobra comisión ni cuenta como retiro - 0.002 s
+[INFO] +--com.academia.banco.DepositoTest - 0.004 s
+[INFO] |  +-- [OK] depositarSumaAlSaldo - 0.001 s
+[INFO] |  '-- [OK] unaCuentaNuevaEmpiezaEnCero - 0.001 s
+[INFO] +--com.academia.banco.RetiroTest - 0.023 s
+[INFO] |  +-- [OK] unMontoConFraccionDeCentavoSeRechaza - 0.001 s
+[INFO] |  +-- [OK] retirarCeroSeRechaza - 0.002 s
+[INFO] |  +-- [OK] retirarRestaDelSaldo - 0.001 s
+[INFO] |  +-- [OK] sinSaldoSuficienteSeRechazaYNoCambiaNada - 0.003 s
+[INFO] |  +-- [XX] retirarExactamenteElLimiteSePermite - 0.004 s
+[INFO] |  +-- [OK] retirarUnCentavoMasDelLimiteSeRechaza - 0.001 s
+[INFO] |  +-- [OK] retirarUnMontoNegativoSeRechaza - 0.001 s
+[INFO] |  '-- [OK] elMensajeDiceCuantoTienesYCuantoNecesitas - 0.002 s
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   ComisionTest.segunElNumeroDeRetiro:23 expected: <0.00> but was: <10.00>
+[ERROR]   TransferenciaTest$CuandoSeRechaza.sinSaldoNoCambiaNada:70 Multiple Failures (1 failure)
+	org.opentest4j.AssertionFailedError: expected: <1000.00> but was: <-0.01>
+[ERROR] Errors: 
+[ERROR]   RetiroTest.retirarExactamenteElLimiteSePermite:59 » LimiteExcedido El retiro de $5000.00 pasa el límite de $5000.00 por operación
+[INFO] 
+[ERROR] Tests run: 31, Failures: 2, Errors: 1, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.787 s
+[INFO] Finished at: 2026-09-30T18:16:30-06:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.2:test (default-test) on project cuenta-bancaria-junit: There are test failures.
+[ERROR] 
+[ERROR] See /home/lenovo1/cuenta-bancaria-junit/target/surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+
+===== DETALLE de cada clase con fallas (target/surefire-reports) =====
+-------------------------------------------------------------------------------
+Test set: com.academia.banco.ComisionTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.048 s <<< FAILURE! -- in com.academia.banco.ComisionTest
+com.academia.banco.ComisionTest.segunElNumeroDeRetiro(int, BigDecimal)[1] -- Time elapsed: 0.005 s
+com.academia.banco.ComisionTest.segunElNumeroDeRetiro(int, BigDecimal)[2] -- Time elapsed: 0.011 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <0.00> but was: <10.00>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+	at com.academia.banco.ComisionTest.segunElNumeroDeRetiro(ComisionTest.java:23)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)
+	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762)
+	at java.base/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base/java.util.stream.ReferencePipeline$7$1.accept(ReferencePipeline.java:276)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1625)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+com.academia.banco.ComisionTest.segunElNumeroDeRetiro(int, BigDecimal)[3] -- Time elapsed: 0.001 s
+com.academia.banco.ComisionTest.segunElNumeroDeRetiro(int, BigDecimal)[4] -- Time elapsed: 0.001 s
+com.academia.banco.ComisionTest.numerosInvalidos(int)[1] -- Time elapsed: 0.003 s
+com.academia.banco.ComisionTest.numerosInvalidos(int)[2] -- Time elapsed: 0.001 s
+-------------------------------------------------------------------------------
+Test set: com.academia.banco.RetiroTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.023 s <<< FAILURE! -- in com.academia.banco.RetiroTest
+com.academia.banco.RetiroTest.unMontoConFraccionDeCentavoSeRechaza -- Time elapsed: 0.001 s
+com.academia.banco.RetiroTest.retirarCeroSeRechaza -- Time elapsed: 0.002 s
+com.academia.banco.RetiroTest.retirarRestaDelSaldo -- Time elapsed: 0.001 s
+com.academia.banco.RetiroTest.sinSaldoSuficienteSeRechazaYNoCambiaNada -- Time elapsed: 0.003 s
+com.academia.banco.RetiroTest.retirarExactamenteElLimiteSePermite -- Time elapsed: 0.004 s <<< ERROR!
+com.academia.banco.LimiteExcedidoException: El retiro de $5000.00 pasa el límite de $5000.00 por operación
+	at com.academia.banco.CuentaBancaria.retirar(CuentaBancaria.java:33)
+	at com.academia.banco.RetiroTest.retirarExactamenteElLimiteSePermite(RetiroTest.java:59)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+com.academia.banco.RetiroTest.retirarUnCentavoMasDelLimiteSeRechaza -- Time elapsed: 0.001 s
+com.academia.banco.RetiroTest.retirarUnMontoNegativoSeRechaza -- Time elapsed: 0.001 s
+com.academia.banco.RetiroTest.elMensajeDiceCuantoTienesYCuantoNecesitas -- Time elapsed: 0.002 s
+-------------------------------------------------------------------------------
+Test set: com.academia.banco.TransferenciaTest$CuandoSeRechaza
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.034 s <<< FAILURE! -- in com.academia.banco.TransferenciaTest$CuandoSeRechaza
+com.academia.banco.TransferenciaTest$CuandoSeRechaza.aLaMismaCuenta -- Time elapsed: 0.006 s
+com.academia.banco.TransferenciaTest$CuandoSeRechaza.destinoNulo -- Time elapsed: 0.003 s
+com.academia.banco.TransferenciaTest$CuandoSeRechaza.montoCero -- Time elapsed: 0.003 s
+com.academia.banco.TransferenciaTest$CuandoSeRechaza.sinSaldoNoCambiaNada -- Time elapsed: 0.016 s <<< FAILURE!
+org.opentest4j.MultipleFailuresError: 
+Multiple Failures (1 failure)
+	org.opentest4j.AssertionFailedError: expected: <1000.00> but was: <-0.01>
+	at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:80)
+	at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:44)
+	at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:38)
+	at org.junit.jupiter.api.Assertions.assertAll(Assertions.java:2944)
+	at com.academia.banco.TransferenciaTest$CuandoSeRechaza.sinSaldoNoCambiaNada(TransferenciaTest.java:70)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	Suppressed: org.opentest4j.AssertionFailedError: expected: <1000.00> but was: <-0.01>
+		at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+		at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+		at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+		at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+		at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+		at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+		at com.academia.banco.TransferenciaTest$CuandoSeRechaza.lambda$sinSaldoNoCambiaNada$1(TransferenciaTest.java:71)
+		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
+		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:992)
+		at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+		at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+		at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921)
+		at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+		at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682)
+		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
+		... 8 more
+
