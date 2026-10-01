@@ -23,7 +23,7 @@ public class CuentaBancaria {
 
     public void depositar(BigDecimal monto) {
         BigDecimal m = validarMonto(monto);
-        saldo = m; // Error a propósito para MP-1
+        saldo = saldo.add(m); // Error a propósito para MP-1
         movimientos.add(new Movimiento(TipoMovimiento.DEPOSITO, m));
     }
 
@@ -56,7 +56,7 @@ public class CuentaBancaria {
         if (m.compareTo(saldo) > 0) {
             throw new SaldoInsuficienteException(saldo, m);
         }
-        saldo = saldo.subtract(m);
+        saldo = saldo.add(m);
         destino.saldo = destino.saldo.add(m);
         movimientos.add(new Movimiento(TipoMovimiento.TRANSFERENCIA_ENVIADA, m));
         destino.movimientos.add(new Movimiento(TipoMovimiento.TRANSFERENCIA_RECIBIDA, m));
